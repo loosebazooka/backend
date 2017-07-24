@@ -1,0 +1,35 @@
+buildscript {
+    ext.appengine_tools_version = '1.9.54'
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.google.appengine:gradle-appengine-plugin:${appengine_tools_version}"
+    }
+}
+
+repositories {
+    jcenter();
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    appengineSdk "com.google.appengine:appengine-java-sdk:${appengine_tools_version}"
+    compile "com.google.appengine:appengine-endpoints:${appengine_tools_version}"
+    compile "com.google.appengine:appengine-endpoints-deps:${appengine_tools_version}"
+    compile 'javax.servlet:servlet-api:2.5'
+}
+
+appengine {
+    downloadSdk = true
+    endpoints {
+        getClientLibsOnBuild = true
+        getDiscoveryDocsOnBuild = true
+    }
+}
